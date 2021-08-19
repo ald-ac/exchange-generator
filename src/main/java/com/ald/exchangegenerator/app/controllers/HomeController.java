@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -42,6 +43,12 @@ public class HomeController {
 	public String addContestant(@ModelAttribute Contestant contestant, @ModelAttribute(name = "contestants") ContestantList contestants) {
 		contestant.setId(LocalDateTime.now().toString());
 		contestants.add(contestant);
+		return "redirect:/generator";
+	}
+	
+	@GetMapping("/removeContestant/{id}")
+	public String removeContestant(@PathVariable(name = "id") String id, @ModelAttribute(name = "contestants") ContestantList contestants) {
+		contestants.removeIf(item -> item.getId().equals(id));
 		return "redirect:/generator";
 	}
 }

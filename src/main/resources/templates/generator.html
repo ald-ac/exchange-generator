@@ -53,7 +53,7 @@
 					<tr th:each="contestant: ${contestants}">
 						<td th:text="${contestant.name}"></td>
 						<td th:text="${contestant.mail}"></td>
-						<td><a class="btn btn-danger">Eliminar</a></td>
+						<td><a th:href="@{/removeContestant/} + ${contestant.id}" class="btn btn-danger">Eliminar</a></td>
 					</tr>
 				</tbody>
 			</table>
