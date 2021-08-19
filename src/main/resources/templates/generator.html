@@ -22,10 +22,9 @@
 					de intercambios</span>
 			</a>
 		</header>
-		<div class="p-5 mb-4 bg-light rounded-3 d-flex flex-column align-items-center" id="fields">
+		<div class="p-5 mb-4 bg-light rounded-3 d-flex flex-column align-items-center">
 			<h1 class="text-center mb-4">Participantes</h1>
-			<form class="row gy-2 gx-3 align-items-center justify-content-center"
-				id="formG">
+			<form class="row gy-2 gx-3 align-items-center justify-content-center">
 				<div class="col-auto">
 					<input type="text" class="form-control" id="autoSizingInput"
 						placeholder="Nombre">
@@ -37,7 +36,7 @@
 							placeholder="Correo">
 					</div>
 				</div>
-				<div class="col-auto text-center" id="buttons">
+				<div class="col-auto text-center">
 					<button type="button" class="btn btn-primary my-1" id="add">Agregar
 						participante +</button>
 					<button type="submit" class="btn btn-success my-1">Generar
@@ -53,19 +52,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td><a class="btn btn-danger">Eliminar</a></td>
-					</tr>
-					<tr>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td><a class="btn btn-danger">Eliminar</a></td>
-					</tr>
-					<tr>
-						<td>Larry</td>
-						<td>Bird</td>
+					<tr th:each="contestant: ${contestants}">
+						<td th:text="${contestant.name}"></td>
+						<td th:text="${contestant.mail}"></td>
 						<td><a class="btn btn-danger">Eliminar</a></td>
 					</tr>
 				</tbody>
