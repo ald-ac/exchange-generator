@@ -1,9 +1,12 @@
 package com.ald.exchangegenerator.app.controllers;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ald.exchangegenerator.app.models.domain.Contestant;
@@ -25,7 +28,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/generator")
-	public String generator(Model model, @ModelAttribute(name = "contestants") ContestantList contestants) {
+	public String generator(Model model) {
 //		Contestant contestant = new Contestant();
 //		contestant.setName("Aldair");
 //		contestant.setMail("ald@gmail.com");
@@ -33,5 +36,12 @@ public class HomeController {
 //		contestants.add(contestant);
 		model.addAttribute("contestant", new Contestant());
 		return "generator";
+	}
+	
+	@PostMapping("/addContestant")
+	public String addContestant(@ModelAttribute Contestant contestant, @ModelAttribute(name = "contestants") ContestantList contestants) {
+		contestant.setId(LocalDateTime.now().toString());
+		contestants.add(contestant);
+		return "redirect:/generator";
 	}
 }
