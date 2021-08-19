@@ -11,4 +11,8 @@ public class HomeController {
 		return "home";
 	}
 	
+	@GetMapping("/generator")
+	public String generator() {
+		return "generator";
+	}
 }
