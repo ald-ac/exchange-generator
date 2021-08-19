@@ -50,7 +50,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="contestant: ${contestants}">
+					<tr th:each="contestant: ${contestants.list}">
 						<td th:text="${contestant.name}"></td>
 						<td th:text="${contestant.mail}"></td>
 						<td><a th:href="@{/removeContestant/} + ${contestant.id}" class="btn btn-danger">Eliminar</a></td>
