@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### exchange-generator
+src/main/resources/application.properties
