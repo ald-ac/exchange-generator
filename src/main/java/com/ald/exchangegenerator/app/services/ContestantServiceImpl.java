@@ -1,6 +1,7 @@
 package com.ald.exchangegenerator.app.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.springframework.stereotype.Service;
 
@@ -31,4 +32,15 @@ public class ContestantServiceImpl implements ContestantService {
 		return contestants;
 	}
 
+	@Override
+	public void randomSort() {
+		Collections.shuffle(contestants);
+		for(int i=0; i<contestants.size(); i++) {
+			if(i==contestants.size()-1) {
+				contestants.get(i).setSecretFriend(contestants.get(0));
+			} else {
+				contestants.get(i).setSecretFriend(contestants.get(i+1));
+			}
+		}
+	}
 }

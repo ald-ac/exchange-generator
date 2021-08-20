@@ -51,8 +51,12 @@ public class HomeController {
 	
 	@GetMapping("/generate")
 	public String generateExchange(@ModelAttribute(name = "contestants") ContestantService contestants, RedirectAttributes flash) {
-		flash.addFlashAttribute("message", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
-		return "redirect:/home";
+		//flash.addFlashAttribute("message", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
+		contestants.randomSort();
+		for(Contestant cont : contestants.list()) {
+			System.out.println(cont.getName() + " -> " + cont.getSecretFriend().getName());
+		}
+		return "redirect:/";
 	}
 	
 	

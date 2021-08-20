@@ -9,4 +9,5 @@ public interface ContestantService {
 	public void add(Contestant contestant);
 	public void removeIf(String id);
 	public ArrayList<Contestant> list();
+	public void randomSort();
 }
