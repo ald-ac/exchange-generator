@@ -43,4 +43,9 @@ public class ContestantServiceImpl implements ContestantService {
 			}
 		}
 	}
+
+	@Override
+	public int size() {
+		return contestants.size();
+	}
 }

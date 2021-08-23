@@ -10,4 +10,5 @@ public interface ContestantService {
 	public void removeIf(String id);
 	public ArrayList<Contestant> list();
 	public void randomSort();
+	public int size();
 }

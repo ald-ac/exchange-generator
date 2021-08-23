@@ -56,15 +56,17 @@ public class HomeController {
 	
 	@GetMapping("/generate")
 	public String generateExchange(@ModelAttribute(name = "contestants") ContestantService contestants, RedirectAttributes flash) {
-		//flash.addFlashAttribute("message", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
-		contestants.randomSort();
-		if(mailservice.sendMails(contestants.list())) {
-			flash.addFlashAttribute("success", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
+		if(contestants.size() < 3) {
+			flash.addFlashAttribute("error", "Para generar un intercambio debe haber como mínimo 3 participantes");
+			return "redirect:/generator";
 		} else {
-			flash.addFlashAttribute("error", "El intercambio no pudo llevarse a cabo, revise que los correos electrónicos son correctos");
+			contestants.randomSort();
+			if(mailservice.sendMails(contestants.list())) {
+				flash.addFlashAttribute("success", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
+			} else {
+				flash.addFlashAttribute("error", "El intercambio no pudo llevarse a cabo, revise que los correos electrónicos son correctos");
+			}
+			return "redirect:/";
 		}
-		return "redirect:/";
 	}
-	
-	
 }

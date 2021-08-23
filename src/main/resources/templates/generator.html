@@ -22,6 +22,8 @@
 					de intercambios</span>
 			</a>
 		</header>
+		<div class="alert alert-success" th:if="${success != null}" th:text="${success}"> </div>
+		<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"> </div>
 		<div class="p-5 mb-4 bg-light rounded-3 d-flex flex-column align-items-center">
 			<h1 class="text-center mb-4">Participantes</h1>
 			<form th:action="@{/addContestant}" method="post" th:object="${contestant}" class="row gy-2 gx-3 align-items-center justify-content-center">
