@@ -2,6 +2,7 @@ package com.ald.exchangegenerator.app.controllers;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ald.exchangegenerator.app.models.domain.Contestant;
 import com.ald.exchangegenerator.app.services.ContestantService;
 import com.ald.exchangegenerator.app.services.ContestantServiceImpl;
+import com.ald.exchangegenerator.app.services.MailService;
 
 @Controller
 @SessionAttributes({"contestants"})
 public class HomeController {
+	
+	@Autowired
+	MailService mailservice;
 	
 	@ModelAttribute("contestants")
 	public ContestantService contestants() {
@@ -53,8 +58,10 @@ public class HomeController {
 	public String generateExchange(@ModelAttribute(name = "contestants") ContestantService contestants, RedirectAttributes flash) {
 		//flash.addFlashAttribute("message", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
 		contestants.randomSort();
-		for(Contestant cont : contestants.list()) {
-			System.out.println(cont.getName() + " -> " + cont.getSecretFriend().getName());
+		if(mailservice.sendMails(contestants.list())) {
+			flash.addFlashAttribute("success", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
+		} else {
+			flash.addFlashAttribute("error", "El intercambio no pudo llevarse a cabo, revise que los correos electrónicos son correctos");
 		}
 		return "redirect:/";
 	}

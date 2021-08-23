@@ -20,6 +20,8 @@
 				<span class="fs-4 text-light fw-bold">Generador de intercambios</span>
 			</a>
 		</header>
+		<div class="alert alert-success" th:if="${success != null}" th:text="${success}"> </div>
+		<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"> </div>
 		<div class="p-5 mb-4 bg-light rounded-3" id="instructions">
 			<div class="container-fluid py-5">
 				<h1 class="display-5 fw-bold">Instrucciones</h1>
