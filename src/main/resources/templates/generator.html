@@ -17,7 +17,7 @@
 					</div>
 				</div>
 				<div class="col-auto text-center">
-					<button type="submit" class="btn btn-primary my-1" id="add">Agregar participante +</button>
+					<button th:text="${messageBtn}" type="submit" class="btn btn-primary my-1" id="add"></button>
 					<a th:href="@{/generate}" class="btn btn-success my-1">Generar intercambio</a>
 				</div>
 			</form>
@@ -33,7 +33,10 @@
 					<tr th:each="contestant: ${contestants.list}">
 						<td th:text="${contestant.name}"></td>
 						<td th:text="${contestant.mail}"></td>
-						<td><a th:href="@{/removeContestant/} + ${contestant.id}" class="btn btn-danger">Eliminar</a></td>
+						<td>
+							<a th:href="@{/removeContestant/} + ${contestant.id}" class="btn btn-danger">Eliminar</a>
+							<a th:href="@{/generator/} + ${contestant.id}" class="btn btn-primary">Modificar</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

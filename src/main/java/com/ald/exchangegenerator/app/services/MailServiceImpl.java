@@ -1,7 +1,6 @@
 package com.ald.exchangegenerator.app.services;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class MailServiceImpl implements MailService{
 	private JavaMailSender mailSender;
 	
 	@Override
-	public boolean sendMails(ArrayList<Contestant> contestants) {
+	public boolean sendMails(List<Contestant> contestants) {
 		for(Contestant cont: contestants) {
 			try {
 				sendMail(cont);

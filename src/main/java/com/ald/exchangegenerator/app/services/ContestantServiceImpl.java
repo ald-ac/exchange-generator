@@ -2,6 +2,8 @@ package com.ald.exchangegenerator.app.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import com.ald.exchangegenerator.app.models.domain.Contestant;
 @Service
 public class ContestantServiceImpl implements ContestantService {
 
-	private ArrayList<Contestant> contestants = new ArrayList<>();
+	private List<Contestant> contestants = new ArrayList<>();
 	
 	@Override
 	public void clear() {
@@ -28,7 +30,17 @@ public class ContestantServiceImpl implements ContestantService {
 	}
 
 	@Override
-	public ArrayList<Contestant> list() {
+	public void update(Contestant contestant) {
+		contestants = contestants.stream().map(item -> item.getId().equals(contestant.getId()) ? contestant : item).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Contestant findById(String id) {
+		return contestants.stream().filter(item -> item.getId().equals(id)).findAny().orElse(null);
+	}
+	
+	@Override
+	public List<Contestant> list() {
 		return contestants;
 	}
 

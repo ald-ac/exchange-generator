@@ -18,7 +18,7 @@ import com.ald.exchangegenerator.app.services.ContestantServiceImpl;
 import com.ald.exchangegenerator.app.services.MailService;
 
 @Controller
-@SessionAttributes({"contestants"})
+@SessionAttributes({"contestants", "contestant"})
 public class HomeController {
 	
 	@Autowired
@@ -35,16 +35,31 @@ public class HomeController {
 		return "home";
 	}
 	
-	@GetMapping("/generator")
-	public String generator(Model model) {
-		model.addAttribute("contestant", new Contestant());
+	@GetMapping({"/generator", "/generator/{id}"})
+	public String generator(@PathVariable(required = false) String id,Model model, @ModelAttribute(name = "contestants") ContestantService contestants) {
+		Contestant contestant;
+		String messageBtn;
+		if(id != null) {
+			contestant = contestants.findById(id);
+			messageBtn = "Modificar participante";
+		} else {
+			contestant = new Contestant();
+			messageBtn = "Agregar participante +";
+		}
+		model.addAttribute("contestant", contestant);
+		model.addAttribute("messageBtn", messageBtn);
 		return "generator";
 	}
 	
 	@PostMapping("/addContestant")
 	public String addContestant(@ModelAttribute Contestant contestant, @ModelAttribute(name = "contestants") ContestantService contestants) {
-		contestant.setId(LocalDateTime.now().toString());
-		contestants.add(contestant);
+		if(contestant.getId() == null) {
+			System.out.println(contestant.getId());
+			contestant.setId(LocalDateTime.now().toString());
+			contestants.add(contestant);
+		} else {
+			contestants.update(contestant);
+		}
 		return "redirect:/generator";
 	}
 	
