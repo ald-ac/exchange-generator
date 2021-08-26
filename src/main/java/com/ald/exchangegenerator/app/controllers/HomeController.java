@@ -78,10 +78,12 @@ public class HomeController {
 			contestants.randomSort();
 			if(mailservice.sendMails(contestants.list())) {
 				flash.addFlashAttribute("success", "El intercambio se ha generado exitosamente, cada participante tiene otro asignado para darle un regalo");
+				return "redirect:/";
 			} else {
 				flash.addFlashAttribute("error", "El intercambio no pudo llevarse a cabo, revise que los correos electrónicos son correctos");
+				return "redirect:/generator";
 			}
-			return "redirect:/";
+			
 		}
 	}
 }
