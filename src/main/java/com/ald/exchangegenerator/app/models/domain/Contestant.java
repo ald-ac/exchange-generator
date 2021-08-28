@@ -1,9 +1,17 @@
 package com.ald.exchangegenerator.app.models.domain;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 public class Contestant {
 
+	@NotBlank(message = "Campo obligatorio")
 	private String name;
+	
+	@NotBlank(message = "Campo obligatorio")
+	@Email(message = "Formato de correo incorrecto")
 	private String mail;
+	
 	private Contestant secretFriend;
 	private String id;
 

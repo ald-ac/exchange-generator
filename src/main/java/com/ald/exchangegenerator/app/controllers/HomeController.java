@@ -2,9 +2,12 @@ package com.ald.exchangegenerator.app.controllers;
 
 import java.time.LocalDateTime;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +21,7 @@ import com.ald.exchangegenerator.app.services.ContestantServiceImpl;
 import com.ald.exchangegenerator.app.services.MailService;
 
 @Controller
-@SessionAttributes({"contestants", "contestant"})
+@SessionAttributes({"contestants", "messageBtn"})
 public class HomeController {
 	
 	@Autowired
@@ -51,16 +54,19 @@ public class HomeController {
 		return "generator";
 	}
 	
-	@PostMapping("/addContestant")
-	public String addContestant(@ModelAttribute Contestant contestant, @ModelAttribute(name = "contestants") ContestantService contestants) {
-		if(contestant.getId() == null) {
-			System.out.println(contestant.getId());
+	@PostMapping("/generator")
+	public String addContestant(@Valid @ModelAttribute Contestant contestant,BindingResult result, @ModelAttribute(name = "contestants") ContestantService contestants, Model model) {
+		if(result.hasErrors()) {
+			return "generator";
+		} 
+		if(contestant.getId() == null || contestant.getId() == "") {
 			contestant.setId(LocalDateTime.now().toString());
 			contestants.add(contestant);
-		} else {
+		} else { 
 			contestants.update(contestant);
 		}
 		return "redirect:/generator";
+		
 	}
 	
 	@GetMapping("/removeContestant/{id}")

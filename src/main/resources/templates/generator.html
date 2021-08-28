@@ -6,20 +6,25 @@
 		<div th:replace="layout/layout :: header"></div>
 		<div class="p-5 mb-4 bg-light rounded-3 d-flex flex-column align-items-center">
 			<h1 class="text-center mb-4">Participantes</h1>
-			<form th:action="@{/addContestant}" method="post" th:object="${contestant}" class="row gy-2 gx-3 align-items-center justify-content-center">
+			<form th:action="@{/generator}" method="post" th:object="${contestant}" class="row gy-2 gx-3 align-items-center justify-content-center">
 				<div class="col-auto">
-					<input th:field="*{name}" type="text" class="form-control" id="autoSizingInput" placeholder="Nombre">
+					<div class="input-group">
+						<input th:field="*{name}" type="text" class="form-control" id="autoSizingInput" placeholder="Nombre">
+					</div>
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger mt-2"></div>
 				</div>
 				<div class="col-auto">
 					<div class="input-group">
 						<div class="input-group-text">@</div>
 						<input th:field="*{mail}" type="text" class="form-control" id="autoSizingInputGroup" placeholder="Correo">
 					</div>
+					<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="alert alert-danger mt-2"></div>
 				</div>
 				<div class="col-auto text-center">
 					<button th:text="${messageBtn}" type="submit" class="btn btn-primary my-1" id="add"></button>
 					<a th:href="@{/generate}" class="btn btn-success my-1">Generar intercambio</a>
 				</div>
+				<input type="hidden" th:field="*{id}">
 			</form>
 			<table class="table w-75 text-center">
 				<thead>
