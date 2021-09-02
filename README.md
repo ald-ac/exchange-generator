@@ -9,8 +9,8 @@ Es posible descargar el proyecto y correrlo, pero se necesitan agregar algunas p
 ```
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
-spring.mail.username=youremail@gmail.com
-spring.mail.password=yourpassword
+spring.mail.username=correo@gmail.com
+spring.mail.password=contraseña
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
 spring.mail.properties.mail.smtp.auth=true
